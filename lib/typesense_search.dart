@@ -1,15 +1,15 @@
 import 'dart:io';
 
 import 'package:typesense/typesense.dart';
-import 'response.dart';
+import 'src/models/models.dart';
 
-class SearchService {
+class TypesenseSearch {
   final Client client;
   List<Schema> collections = [];
 
-  SearchService._(this.client);
+  TypesenseSearch._(this.client);
 
-  factory SearchService(
+  factory TypesenseSearch(
       {required String apiKey,
       required InternetAddress host,
       String scheme = 'http',
@@ -24,10 +24,10 @@ class SearchService {
         numRetries: retries,
         connectionTimeout: Duration(seconds: timeout));
 
-    return SearchService._(Client(configuration));
+    return TypesenseSearch._(Client(configuration));
   }
 
-  factory SearchService.withHostAddress(
+  factory TypesenseSearch.withHostAddress(
       {required String apiKey,
       required String hostAdress,
       InternetAddressType hostAdressType = InternetAddressType.unix,
@@ -36,7 +36,7 @@ class SearchService {
       Protocol protocol = Protocol.http,
       int retries = 3,
       int timeout = 3}) {
-    return SearchService(
+    return TypesenseSearch(
         apiKey: apiKey,
         host: InternetAddress(hostAdress, type: hostAdressType),
         scheme: scheme,

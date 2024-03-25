@@ -1,3 +1,5 @@
+part of models;
+
 class ApiResponse<T> {
   final List<T> hits;
   final List<dynamic> facetCounts;
