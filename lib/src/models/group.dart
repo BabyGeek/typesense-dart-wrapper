@@ -1,24 +1,20 @@
 part of models;
 
-class ApiResponse<T> {
-  final List<T> hits;
-  final List<dynamic> facetCounts;
+class ApiGroup<T> {
   final int found;
+  final List<dynamic> groupKeys;
+  final List<T> hits;
 
-  ApiResponse({
-    required this.hits,
-    required this.facetCounts,
-    required this.found,
-  });
+  ApiGroup({required this.found, required this.groupKeys, required this.hits});
 
-  factory ApiResponse.fromJson(
+  factory ApiGroup.fromJson(
       Map<String, dynamic> json, T Function(Map<String, dynamic>) fromJson) {
     try {
-      return ApiResponse<T>(
+      return ApiGroup<T>(
         hits: (json['hits'] as List<dynamic>)
             .map((hit) => fromJson(hit['document'] as Map<String, dynamic>))
             .toList(),
-        facetCounts: json['facet_counts'] as List<dynamic>,
+        groupKeys: json['group_key'] as List<dynamic>,
         found: json['found'] as int,
       );
     } catch (e) {
