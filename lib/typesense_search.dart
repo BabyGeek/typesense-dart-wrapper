@@ -3,5 +3,5 @@
 /// More dartdocs go here.
 library;
 
-export 'src/typesense_search_base.dart';
+export 'src/services/typesense_search.dart';
 export 'src/models/models.dart';
