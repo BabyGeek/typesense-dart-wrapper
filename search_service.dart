@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:cocktail_app/application/services/search/response.dart';
 import 'package:typesense/typesense.dart';
+import 'response.dart';
 
 class SearchService {
   final Client client;
