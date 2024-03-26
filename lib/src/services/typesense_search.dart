@@ -9,38 +9,88 @@ class TypesenseSearch {
 
   TypesenseSearch._(this.client);
 
-  factory TypesenseSearch(
-      {required String apiKey,
-      required InternetAddress host,
-      String scheme = 'http',
-      int? port = 8108,
-      int retries = 3,
-      int timeout = 3}) {
-    final configuration = Configuration(apiKey,
-        nodes: {
-          Node.withUri(Uri(scheme: scheme, host: host.address, port: port))
-        },
-        numRetries: retries,
-        connectionTimeout: Duration(seconds: timeout));
+  factory TypesenseSearch({
+    required String apiKey,
+    Set<Node>? nodes,
+    Node? nearestNode,
+    int? numRetries,
+    Duration retryInterval = const Duration(milliseconds: 100),
+    Duration connectionTimeout = const Duration(seconds: 10),
+    Duration healthcheckInterval = const Duration(seconds: 15),
+    Duration cachedSearchResultsTTL = Duration.zero,
+    bool sendApiKeyAsQueryParam = false,
+  }) {
+    final configuration = Configuration(
+      apiKey,
+      nodes: nodes,
+      nearestNode: nearestNode,
+      numRetries: numRetries,
+      connectionTimeout: connectionTimeout,
+      retryInterval: retryInterval,
+      healthcheckInterval: healthcheckInterval,
+      cachedSearchResultsTTL: cachedSearchResultsTTL,
+      sendApiKeyAsQueryParam: sendApiKeyAsQueryParam,
+    );
 
     return TypesenseSearch._(Client(configuration));
   }
 
-  factory TypesenseSearch.withHostAddress(
-      {required String apiKey,
-      required String hostAdress,
-      InternetAddressType hostAdressType = InternetAddressType.unix,
-      String scheme = 'http',
-      int? port = 8108,
-      int retries = 3,
-      int timeout = 3}) {
+  factory TypesenseSearch.withHostAddress({
+    required String apiKey,
+    required String hostAdress,
+    InternetAddressType hostAdressType = InternetAddressType.unix,
+    String scheme = 'http',
+    int? port = 8108,
+    Node? nearestNode,
+    int? numRetries,
+    Duration retryInterval = const Duration(milliseconds: 100),
+    Duration connectionTimeout = const Duration(seconds: 10),
+    Duration healthcheckInterval = const Duration(seconds: 15),
+    Duration cachedSearchResultsTTL = Duration.zero,
+    bool sendApiKeyAsQueryParam = false,
+  }) {
     return TypesenseSearch(
-        apiKey: apiKey,
-        host: InternetAddress(hostAdress, type: hostAdressType),
-        scheme: scheme,
-        port: port,
-        retries: retries,
-        timeout: timeout);
+      apiKey: apiKey,
+      nodes: {
+        Node.withUri(Uri(
+            scheme: scheme,
+            host: InternetAddress(hostAdress, type: hostAdressType).address,
+            port: port)),
+      },
+      nearestNode: nearestNode,
+      numRetries: numRetries,
+      connectionTimeout: connectionTimeout,
+      retryInterval: retryInterval,
+      healthcheckInterval: healthcheckInterval,
+      cachedSearchResultsTTL: cachedSearchResultsTTL,
+      sendApiKeyAsQueryParam: sendApiKeyAsQueryParam,
+    );
+  }
+
+  factory TypesenseSearch.localhost({
+    required String apiKey,
+    int? numRetries,
+    Duration retryInterval = const Duration(milliseconds: 100),
+    Duration connectionTimeout = const Duration(seconds: 10),
+    Duration healthcheckInterval = const Duration(seconds: 15),
+    Duration cachedSearchResultsTTL = Duration.zero,
+    bool sendApiKeyAsQueryParam = false,
+  }) {
+    return TypesenseSearch(
+      apiKey: apiKey,
+      nodes: {
+        Node.withUri(Uri(
+            scheme: "http",
+            host: InternetAddress.loopbackIPv4.address,
+            port: 8108))
+      },
+      numRetries: numRetries,
+      connectionTimeout: connectionTimeout,
+      retryInterval: retryInterval,
+      healthcheckInterval: healthcheckInterval,
+      cachedSearchResultsTTL: cachedSearchResultsTTL,
+      sendApiKeyAsQueryParam: sendApiKeyAsQueryParam,
+    );
   }
 
   Future<dynamic> search<T>(String search, String collectionName,
