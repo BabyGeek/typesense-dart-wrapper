@@ -4,9 +4,9 @@ class TypesenseSearch {
   final Client client;
   List<Schema> collections = [];
 
-  TypesenseSearch._(this.client);
+  TypesenseSearch(this.client);
 
-  factory TypesenseSearch({
+  factory TypesenseSearch.withNodes({
     required String apiKey,
     Set<Node>? nodes,
     Node? nearestNode,
@@ -29,7 +29,7 @@ class TypesenseSearch {
       sendApiKeyAsQueryParam: sendApiKeyAsQueryParam,
     );
 
-    return TypesenseSearch._(Client(configuration));
+    return TypesenseSearch(Client(configuration));
   }
 
   factory TypesenseSearch.withHostAddress({
@@ -46,7 +46,7 @@ class TypesenseSearch {
     Duration cachedSearchResultsTTL = Duration.zero,
     bool sendApiKeyAsQueryParam = false,
   }) {
-    return TypesenseSearch(
+    return TypesenseSearch.withNodes(
       apiKey: apiKey,
       nodes: {
         Node.withUri(Uri(
@@ -73,7 +73,7 @@ class TypesenseSearch {
     Duration cachedSearchResultsTTL = Duration.zero,
     bool sendApiKeyAsQueryParam = false,
   }) {
-    return TypesenseSearch(
+    return TypesenseSearch.withNodes(
       apiKey: apiKey,
       nodes: {
         Node.withUri(Uri(
