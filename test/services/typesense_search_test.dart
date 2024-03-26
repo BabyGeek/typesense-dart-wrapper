@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
@@ -9,6 +11,124 @@ import "package:typesense/src/documents.dart";
 import "typesense_search_test.mocks.dart";
 
 void main() {
+  group("TypesenseSearch initializers", () {
+    test("TypesenseSearch.withNodes throws when no nodes", () {
+      try {
+        TypesenseSearch.withNodes(apiKey: "api_key");
+        // If no error is thrown, fail the test
+        fail("Expected MissingConfiguration error but got none");
+      } catch (e) {
+        expect(e, isA<MissingConfiguration>());
+      }
+    });
+    test("TypesenseSearch.withNodes initializes correctly with nearest nodes",
+        () {
+      final typesenseSearch = TypesenseSearch.withNodes(
+        apiKey: "api_key",
+        nodes: {
+          Node.withUri(Uri(host: "example.com")),
+        },
+        nearestNode: Node.withUri(Uri(host: "nearest.example.com")),
+      );
+
+      expect(typesenseSearch.client.config.apiKey, "api_key");
+      expect(typesenseSearch.client.config.nodes,
+          {Node.withUri(Uri(host: "example.com"))});
+      expect(typesenseSearch.client.config.nearestNode,
+          Node.withUri(Uri(host: "nearest.example.com")));
+      expect(typesenseSearch.client.config.numRetries, 2);
+      expect(typesenseSearch.client.config.retryInterval,
+          Duration(milliseconds: 100));
+      expect(typesenseSearch.client.config.connectionTimeout,
+          Duration(seconds: 10));
+      expect(typesenseSearch.client.config.healthcheckInterval,
+          Duration(seconds: 15));
+      expect(
+          typesenseSearch.client.config.cachedSearchResultsTTL, Duration.zero);
+      expect(typesenseSearch.client.config.sendApiKeyAsQueryParam, false);
+    });
+    test(
+        "TypesenseSearch.withNodes initializes correctly without nearest nodes",
+        () {
+      final typesenseSearch = TypesenseSearch.withNodes(
+        apiKey: "api_key",
+        nodes: {
+          Node.withUri(Uri(host: "example.com")),
+        },
+      );
+
+      expect(typesenseSearch.client.config.apiKey, "api_key");
+      expect(typesenseSearch.client.config.nodes,
+          {Node.withUri(Uri(host: "example.com"))});
+      expect(typesenseSearch.client.config.nearestNode, isNull);
+      expect(typesenseSearch.client.config.numRetries, 1);
+      expect(typesenseSearch.client.config.retryInterval,
+          Duration(milliseconds: 100));
+      expect(typesenseSearch.client.config.connectionTimeout,
+          Duration(seconds: 10));
+      expect(typesenseSearch.client.config.healthcheckInterval,
+          Duration(seconds: 15));
+      expect(
+          typesenseSearch.client.config.cachedSearchResultsTTL, Duration.zero);
+      expect(typesenseSearch.client.config.sendApiKeyAsQueryParam, false);
+    });
+
+    test("TypesenseSearch.withHostAddress initializes correctly", () {
+      final typesenseSearch = TypesenseSearch.withHostAddress(
+        apiKey: "api_key",
+        hostAdress: "localhost",
+      );
+
+      expect(typesenseSearch.client.config.apiKey, "api_key");
+      expect(typesenseSearch.client.config.nodes, {
+        Node.withUri(
+          Uri(
+            scheme: "http",
+            host: "localhost",
+            port: 8108,
+          ),
+        ),
+      });
+      expect(typesenseSearch.client.config.nearestNode, isNull);
+      expect(typesenseSearch.client.config.numRetries, 1);
+      expect(typesenseSearch.client.config.retryInterval,
+          Duration(milliseconds: 100));
+      expect(typesenseSearch.client.config.connectionTimeout,
+          Duration(seconds: 10));
+      expect(typesenseSearch.client.config.healthcheckInterval,
+          Duration(seconds: 15));
+      expect(
+          typesenseSearch.client.config.cachedSearchResultsTTL, Duration.zero);
+      expect(typesenseSearch.client.config.sendApiKeyAsQueryParam, false);
+    });
+
+    test("TypesenseSearch.localhost initializes correctly", () {
+      final typesenseSearch = TypesenseSearch.localhost(apiKey: "api_key");
+
+      expect(typesenseSearch.client.config.apiKey, "api_key");
+      expect(typesenseSearch.client.config.nodes, {
+        Node.withUri(
+          Uri(
+            scheme: "http",
+            host: InternetAddress.loopbackIPv4.address,
+            port: 8108,
+          ),
+        ),
+      });
+      expect(typesenseSearch.client.config.nearestNode, isNull);
+      expect(typesenseSearch.client.config.numRetries, 1);
+      expect(typesenseSearch.client.config.retryInterval,
+          Duration(milliseconds: 100));
+      expect(typesenseSearch.client.config.connectionTimeout,
+          Duration(seconds: 10));
+      expect(typesenseSearch.client.config.healthcheckInterval,
+          Duration(seconds: 15));
+      expect(
+          typesenseSearch.client.config.cachedSearchResultsTTL, Duration.zero);
+      expect(typesenseSearch.client.config.sendApiKeyAsQueryParam, false);
+    });
+  });
+
   group('TypesenseSearch', () {
     late TypesenseSearch typesenseSearch;
     final MockClient mockClient = MockClient();
