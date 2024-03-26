@@ -17,19 +17,23 @@ class TypesenseSearch {
     Duration cachedSearchResultsTTL = Duration.zero,
     bool sendApiKeyAsQueryParam = false,
   }) {
-    final configuration = Configuration(
-      apiKey,
-      nodes: nodes,
-      nearestNode: nearestNode,
-      numRetries: numRetries,
-      connectionTimeout: connectionTimeout,
-      retryInterval: retryInterval,
-      healthcheckInterval: healthcheckInterval,
-      cachedSearchResultsTTL: cachedSearchResultsTTL,
-      sendApiKeyAsQueryParam: sendApiKeyAsQueryParam,
-    );
+    try {
+      final configuration = Configuration(
+        apiKey,
+        nodes: nodes,
+        nearestNode: nearestNode,
+        numRetries: numRetries,
+        connectionTimeout: connectionTimeout,
+        retryInterval: retryInterval,
+        healthcheckInterval: healthcheckInterval,
+        cachedSearchResultsTTL: cachedSearchResultsTTL,
+        sendApiKeyAsQueryParam: sendApiKeyAsQueryParam,
+      );
 
-    return TypesenseSearch(Client(configuration));
+      return TypesenseSearch(Client(configuration));
+    } catch (e) {
+      rethrow;
+    }
   }
 
   factory TypesenseSearch.withHostAddress({
