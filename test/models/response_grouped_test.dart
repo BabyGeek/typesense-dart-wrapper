@@ -79,6 +79,16 @@ void main() {
   });
 
   group("GroupedResponse.fromJson initialization", () {
+    test("with empty grouped hits works", () {
+      expect(
+          ApiGroupedResponse<String>.fromJson({
+            "grouped_hits": [],
+            "facet_counts": [],
+            "found_docs": 5,
+            "found": 2
+          }, (json) => json["name"]),
+          isA<ApiGroupedResponse<String>>());
+    });
     test("with no grouped hits throws", () {
       expect(
           () => ApiGroupedResponse<String>.fromJson(

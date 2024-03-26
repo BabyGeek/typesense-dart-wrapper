@@ -44,6 +44,14 @@ void main() {
   });
 
   group("Response.fromJson initialization", () {
+    test("with empty hits works", () {
+      final result = ApiResponse<String>.fromJson(
+          {"hits": [], "facet_counts": [], "found": 2}, (json) {
+        return json["name"];
+      });
+      expect(result, isA<ApiResponse<String>>());
+      expect(result.hits, isEmpty);
+    });
     test("with no hits throws", () {
       expect(
           () => ApiResponse<String>.fromJson({"facet_counts": [], "found": 2},
