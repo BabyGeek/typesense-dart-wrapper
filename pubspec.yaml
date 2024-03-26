@@ -1,0 +1,18 @@
+name: typesense_search
+description: Dart client library for wrapping the Typesense community library.
+version: 0.1.0
+homepage: https://typesense.org/
+repository: https://github.com/typesense/typesense-dart-wrapper
+
+environment:
+  sdk: ^3.2.5
+
+# Add regular dependencies here.
+dependencies:
+  typesense: ^0.4.0
+
+dev_dependencies:
+  lints: ^2.1.0
+  test: ^1.25.2
+  mockito: ^5.4.4
+  build_runner: ^2.4.8
