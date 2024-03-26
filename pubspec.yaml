@@ -16,3 +16,4 @@ dev_dependencies:
   test: ^1.25.2
   mockito: ^5.4.4
   build_runner: ^2.4.8
+  dartdoc: ^8.0.7
