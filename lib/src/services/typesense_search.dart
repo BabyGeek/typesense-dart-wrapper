@@ -1,7 +1,4 @@
-import 'dart:io';
-
-import 'package:typesense/typesense.dart';
-import 'package:typesense_search/src/models/models.dart';
+part of services;
 
 class TypesenseSearch {
   final Client client;
