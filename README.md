@@ -12,26 +12,27 @@ Instanciate the service
 
 ## Filter
 
-To use filtering you have to call the search method, you can use it with pagination also.
+To use filtering you have to call the search method.
 
 ```dart
-Future<ApiResponse<T>> search<T>(String search, String collectionName,
-      {String? queryBy,
-      String? filterBy,
-      String? sortBy,
-      int? page,
-      int? limit,
-      int? offset,
+Future<dynamic> search<T>(String collectionName,
+      {required Parameters parameters,
       required T Function(Map<String, dynamic>) fromJson}) async { } 
 ```
 
-The filters follow the format from the Typesense documentation
-
-The object apiResponse can be used like so:
+The object apiResponse can be used like so if it is not grouped by request:
 
 ```dart
 print("total item found: ${apiResponse.found}");
 print("Facet count: ${apiResponse.facetCount}");
 print("items: ${apiResponse.hits}");
+```
 
+If it is a grouped by request:
+
+```dart
+print("total item found: ${apiResponse.foundDocs}");
+print("total group found: ${apiResponse.found}");
+print("Facet count: ${apiResponse.facetCount}");
+print("items: ${apiResponse.groupedHits}");
 ```
