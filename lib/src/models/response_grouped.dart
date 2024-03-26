@@ -1,9 +1,16 @@
 part of models;
 
 class ApiGroupedResponse<T> {
+  /// List of groups found
   final List<ApiGroup<T>> groupedHits;
+
+  /// List of facet fields counts.
   final List<dynamic> facetCounts;
+
+  /// Total documents found.
   final int foundDocs;
+
+  /// Total group found.
   final int found;
 
   ApiGroupedResponse(
@@ -12,6 +19,7 @@ class ApiGroupedResponse<T> {
       required this.foundDocs,
       required this.found});
 
+  /// Convert json data to [ApiGroupedResponse] object, using [fromJson] to convert the hits.
   factory ApiGroupedResponse.fromJson(
       Map<String, dynamic> json, T Function(Map<String, dynamic>) fromJson) {
     try {

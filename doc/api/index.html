@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="generator" content="made with love by dartdoc 7.0.1-wip">
+  <meta name="description" content="typesense_search API docs, for the Dart programming language.">
+  <title>typesense_search - Dart API docs</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="static-assets/github.css?v1">
+  <link rel="stylesheet" href="static-assets/styles.css?v1">
+  <link rel="icon" href="static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="https://typesense.org/">typesense_search package</a></li>
+  </ol>
+  <div class="self-name">typesense_search</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div id="dartdoc-main-content" class="main-content">
+      
+<section class="desc markdown">
+  <h2 id="installation">Installation</h2>
+<h2 id="getting-started">Getting Started</h2>
+<p>Instanciate the service</p>
+<pre class="language-dart"><code class="language-dart">    final searchService = TypesenseSearch(
+        apiKey: TYPESENSE_API_KEY, host: InternetAddress.loopbackIPv4);
+</code></pre>
+<h2 id="filter">Filter</h2>
+<p>To use filtering you have to call the search method.</p>
+<pre class="language-dart"><code class="language-dart">Future&lt;dynamic&gt; search&lt;T&gt;(String collectionName,
+      {required Parameters parameters,
+      required T Function(Map&lt;String, dynamic&gt;) fromJson}) async { } 
+</code></pre>
+<p>The object apiResponse can be used like so if it is not grouped by request:</p>
+<pre class="language-dart"><code class="language-dart">print("total item found: ${apiResponse.found}");
+print("Facet count: ${apiResponse.facetCount}");
+print("items: ${apiResponse.hits}");
+</code></pre>
+<p>If it is a grouped by request:</p>
+<pre class="language-dart"><code class="language-dart">print("total item found: ${apiResponse.foundDocs}");
+print("total group found: ${apiResponse.found}");
+print("Facet count: ${apiResponse.facetCount}");
+print("items: ${apiResponse.groupedHits}");
+</code></pre>
+</section>
+
+
+      <section class="summary">
+          <h2>Libraries</h2>
+        <dl>
+          <dt id="typesense_search">
+  <span class="name"><a href="typesense_search/typesense_search-library.html">typesense_search</a></span> 
+
+</dt>
+<dd>Support for doing something awesome.
+</dd>
+
+        </dl>
+      </section>
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="https://typesense.org/">typesense_search package</a></li>
+</ol>
+
+
+    <h5 class="hidden-xs"><span class="package-name">typesense_search</span> <span class="package-kind">package</span></h5>
+    <ol>
+      <li class="section-title">Libraries</li>
+      <li><a href="typesense_search/typesense_search-library.html">typesense_search</a></li>
+</ol>
+
+  </div>
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div>
+
+</main>
+
+<footer>
+  <span class="no-break">
+    typesense_search
+      0.1.0
+  </span>
+
+  
+</footer>
+
+
+
+<script src="static-assets/highlight.pack.js?v1"></script>
+<script src="static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+
