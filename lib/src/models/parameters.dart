@@ -1,14 +1,43 @@
 part of models;
 
 class Parameters {
+  /// The query text to search for in the collection.
   final String query;
+
+  /// TOne or more field names that should be queried against.
+  /// Separate multiple fields with a comma: company_name, country
   final String queryBy;
+
+  /// Filter conditions for refining your search results.
   final String? filterBy;
+
+  /// A list of fields and their corresponding sort orders that will be used for ordering your results.
+  /// Separate multiple fields with a comma.
   final String? sortBy;
+
+  /// You can aggregate search results into groups or buckets by specify one or more group_by fields.
+  /// Separate multiple fields with a comma.
+  /// NOTE: To group on a particular field, it must be a faceted field.
+  /// E.g. group_by=country,company_name
   final String? groupBy;
+
+  /// Maximum number of hits to be returned for every group.
+  /// If the group_limit is set as K then only the top K hits in each group are returned in the response.
+  /// Default: 3
   final int? groupLimit;
+
+  /// Results from this specific page number would be fetched.
+  /// Page numbers start at 1 for the first page.
+  /// Default: 1.
   final int? page;
+
+  /// Number of hits to fetch.
+  /// Default: 10.
+  /// NOTE: Only upto 250 hits (or groups of hits when using group_by) can be fetched per page.
   final int? limit;
+
+  /// Identifies the starting point to return hits from a result set.
+  /// Can be used as an alternative to the page parameter.
   final int? offset;
 
   Parameters(

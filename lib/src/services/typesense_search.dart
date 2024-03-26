@@ -2,6 +2,8 @@ part of services;
 
 class TypesenseSearch {
   final Client client;
+
+  /// Used to the current collections Schema of the server
   List<Schema> collections = [];
 
   TypesenseSearch(this.client);
@@ -94,6 +96,9 @@ class TypesenseSearch {
     );
   }
 
+  /// Perform a search on the collection [collectionName] using the defined parameters.
+  /// [fromJson] is used to convert the hits into the given object of type [T]
+  /// Returns [ApiResponse] or [ApiGroupedResponse] depending on the given parameters.
   Future<dynamic> search<T>(String collectionName,
       {required Parameters parameters,
       required T Function(Map<String, dynamic>) fromJson}) async {

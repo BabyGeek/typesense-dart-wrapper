@@ -1,12 +1,18 @@
 part of models;
 
 class ApiGroup<T> {
+  /// Number of hits found.
   final int found;
+
+  /// Keys that represent the group.
   final List<dynamic> groupKeys;
+
+  /// List of hits found.
   final List<T> hits;
 
   ApiGroup({required this.found, required this.groupKeys, required this.hits});
 
+  /// Convert json data to [ApiGroup] object, using [fromJson] to convert the hits.
   factory ApiGroup.fromJson(
       Map<String, dynamic> json, T Function(Map<String, dynamic>) fromJson) {
     try {

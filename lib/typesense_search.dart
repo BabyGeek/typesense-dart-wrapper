@@ -1,7 +1,4 @@
-/// Support for doing something awesome.
-///
-/// More dartdocs go here.
-library;
+library typesense_search;
 
 export 'src/services/services.dart';
 export 'src/models/models.dart';
