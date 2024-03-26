@@ -90,7 +90,7 @@ class TypesenseSearch {
     );
   }
 
-  Future<dynamic> search<T>(String search, String collectionName,
+  Future<dynamic> search<T>(String collectionName,
       {required Parameters parameters,
       required T Function(Map<String, dynamic>) fromJson}) async {
     try {
