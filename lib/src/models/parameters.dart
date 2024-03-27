@@ -77,11 +77,9 @@ class Parameters {
     }
   }
 
-  Map<String, dynamic> toMap() {
-    final Map<String, dynamic> searchParameters = {
-      'q': query,
-      'query_by': queryBy
-    };
+  Map<String, dynamic /*String?|Iterable<String>*/ > toMap() {
+    final Map<String, dynamic /*String?|Iterable<String>*/ > searchParameters =
+        {'q': query, 'query_by': queryBy};
 
     if (filterBy != null) {
       searchParameters['filter_by'] = filterBy;
@@ -94,20 +92,20 @@ class Parameters {
     if (groupBy != null) {
       searchParameters['group_by'] = groupBy;
       if (groupLimit != null) {
-        searchParameters['group_limit'] = groupLimit;
+        searchParameters['group_limit'] = groupLimit.toString();
       }
     }
 
     if (page != null) {
-      searchParameters['page'] = page;
+      searchParameters['page'] = page.toString();
     }
 
     if (limit != null) {
-      searchParameters['limit'] = limit;
+      searchParameters['limit'] = limit.toString();
     }
 
     if (offset != null) {
-      searchParameters['offset'] = offset;
+      searchParameters['offset'] = offset.toString();
     }
 
     return searchParameters;
