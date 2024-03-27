@@ -121,19 +121,31 @@ void main() {
     });
     test("has groupLimit field", () {
       expect(parameters1["group_limit"], isNull);
-      expect(parameters2["group_limit"], 1);
+      expect(parameters2["group_limit"], '1');
     });
     test("has page field", () {
-      expect(parameters1["page"], 1);
-      expect(parameters2["page"], 1);
+      expect(parameters1["page"], '1');
+      expect(parameters2["page"], '1');
     });
     test("has limit field", () {
-      expect(parameters1["limit"], 20);
-      expect(parameters2["limit"], 20);
+      expect(parameters1["limit"], '20');
+      expect(parameters2["limit"], '20');
     });
     test("has offset field", () {
-      expect(parameters1["offset"], 0);
-      expect(parameters2["offset"], 0);
+      expect(parameters1["offset"], '0');
+      expect(parameters2["offset"], '0');
+    });
+
+    test('Map values are iterable', () {
+      parameters1.forEach((key, value) {
+        expect(value, anyOf(isA<String>(), isA<Iterable<String>>()),
+            reason: 'Value for key $key should be iterable');
+      });
+
+      parameters2.forEach((key, value) {
+        expect(value, anyOf(isA<String>(), isA<Iterable<String>>()),
+            reason: 'Value for key $key should be iterable');
+      });
     });
   });
 }
